@@ -1,5 +1,5 @@
-name: template-tutorial
-title: Showroom Poc Demo
+name: stssc-on-ocp-wks
+title: Securing The Software Supply Chain with Red Hat OpenShift
 version: master
 nav:
   - modules/ROOT/nav.adoc
