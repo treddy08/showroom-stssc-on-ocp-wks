@@ -3,8 +3,8 @@
 
 * xref:02-pipeline-overview.adoc[2. An Overview of your Pipeline]
 
-* xref:03-enable-acs-policy.adoc[3. Verifying Image Signatures]
+* xref:03-configure-acs-policy.adoc[3. Configuring ACS for Image Signatures Verification]
 
-* xref:04-install-chains.adoc[4.  Installing Tekton Chains for Image Signing]
+* xref:04-install-chains.adoc[4. Installing Tekton Chains for Image Signing]
 
 * xref:05-resolve-deployment.adoc[5. Challenge: Resolve Deployment Issues]
