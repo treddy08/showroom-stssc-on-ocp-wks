@@ -39,4 +39,3 @@ Wait for the *AVAILABLE* column to display *1*
 NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
 tekton-chains-controller   1/1     1            1           106m
 ----
-

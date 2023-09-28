@@ -4,7 +4,7 @@ runtime:
 site:
   title: Showroom Poc Demo
   url: https://redhat-scholars.github.io/course-template
-  start_page: template-tutorial::index.adoc
+  start_page: stssc-on-ocp-wks::index.adoc
 
 content:
   sources:
