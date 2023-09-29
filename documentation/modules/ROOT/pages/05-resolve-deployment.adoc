@@ -39,5 +39,5 @@ This saves your changes to the local repository.
 . Notice that another instance of your pipeline run has started.  Wait for it to complete.
 
 == Examine pipeline
-. Click on the pipeline and then click on *acs-deploy-check* task.
+. Click on the pipeline and then click on the *acs-deploy-check* task.
 . The critical warning has now been resolved and does not show up in the logs.

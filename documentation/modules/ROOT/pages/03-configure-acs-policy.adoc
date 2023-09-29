@@ -96,3 +96,14 @@ Your pipeline should complete in a *Failed* state.
 == Examine pipeline
 . Click on the pipeline run to examine the reason for the error.
 . Your pipeline has failed as the Red Hat ACS policy *01-Trusted Signature Policy* is enabled and has detected that the image your pipeline has built is not signed with the private key you generated with *Cosign*.
+
+== Deploy an Untrusted Image
+
+. Run the below command on your terminal
++
+[source, bash]
+----
+oc new-app https://github.com/openshift/ruby-hello-world.git#beta4 -n globex
+----
++
+. Observe the output of this command.  Notice that the admission controller has prevented you from creating this application as the image being deployed violates the *0-Trusted Signature Policy*.  Creating a depoyment with an untrusted image directly on Openshift will also be prevented along with a similar warning showing up on the *Events* tab.
