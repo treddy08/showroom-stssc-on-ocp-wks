@@ -35,8 +35,15 @@ image::rhacs-signature-integration.png[]
 .. For *Integration name* enter *cosign*
 .. Expand the *Cosign* field and select *Add new public key*
 .. For *Public key name* enter *cosign.pub*
-.. For *Public key value* copy the public key from the terminal and paste it in this field.  This is used by RHACS to verify your image signatures.
-.. Click save
+.. For *Public key value* copy the public key from the terminal and paste it in this field.  This is used by RHACS to verify your image signatures.  Ensure you copy the entire contents of the file i.e.
++
+[source,textinfo]
+----
+*-----BEGIN PUBLIC KEY-----*
+...
+*-----END PUBLIC KEY-----*
+----
+. Click save
 +
 image::rhacs-signature-integration-entry.png[]
 +
@@ -69,3 +76,23 @@ image::rhacs-policy-criteria-trusted-image-signers.png[]
 . Now that the policy is updated, we want to enable it.  Click the ellipse again for the same policy and select *Enable policy*
 +
 image::rhacs-policy-actions-popup.png[]
+
+== Trigger the Pipeline
+
+. Login to {codeserver_url}[Code Server] with password {common_password}
+. On the left side of the screen, under *IDE (WORKSPACE)*, you will find the *globex-ui* source code project.  Expand the *src* folder and click on *index.html*.
+. On line *19* modify the *center* html element value from *Globex Online* to *Globex Update*
+. From the top menu, click *File > Save*
+. Click the source control icon on the left side of the screen
+. Notice that the *index.html* file is shown under the *Changes* section.  Click the *+* sign to the right of the file name.
+This will add the file to the Git staging area.
+. Next enter some text in the *Commit* text box, such as *globex udpate 1*, and click *Commit*.
+This saves your changes to the local repository.
+. Next click the *Sync Changes* button to push your change to the remote repository.
+. Switch back to *Openshift* and click *Pipelines > Pipelines* from the left menu.  Ensure that your project is set to *ci*.
+. Notice that a new instance of your pipeline run has started.
+Your pipeline should complete in a *Failed* state.
+
+== Examine pipeline
+. Click on the pipeline run to examine the reason for the error.
+. Your pipeline has failed as the Red Hat ACS policy *01-Trusted Signature Policy* is enabled and has detected that the image your pipeline has built is not signed with the private key you generated with *Cosign*.
