@@ -1,42 +1,19 @@
 include::_attributes.adoc[]
 
 
-= Resolving the Deployment File Warning
+= Optional Challenge Lab: Resolving the Deployment File Warning
 
-== Update dep-globex-ui.yaml
+This part of the workshop is optional and tests your knowledge on resolving Openshift deployment related issues particulary around the risk of over provisioning of resources.
 
-. Login to {gitea_console_url}[Gitea] with username *dev-user* and password *openshift*
+== Updating the globex-ui deployment file
+
+. Using the terminal and the git clone command, clone the project {git_project}
+. Navigate to the *kustomize* base folder of the globex application and identify the *globex-ui* deployment file
 . On the right side of your screen under *Repositories*, click *dev-user/stssc-on-ocp-wks*
-. Click *gitops > globex > base > dep-globex-ui.yaml*
-. Click on the *Edit File* icon
-. Add a new line after line *60* and paste the below resource request/limits.  Ensure the *resources* field is in line with the field on line 60 (indent 8)
-+
-[source,yaml]
-----
-resources:
-  requests:
-    cpu: 100m
-    memory: 200Mi
-  limits:
-    cpu: 200m
-    memory: 400Mi
-----
-. At the bottom of the scree ensure that *Commit driectly to main branch* is selected and click *Commit Changes*.
-
-== Trigger the Pipeline
-
-. Switch back to {codeserver_url}[Code Server]
-. On the left side of the screen, under *IDE (WORKSPACE)*, you will find the *globex-ui* source code project.  Expand the *src* folder and click on *index.html*.
-. On line *19* modify the *center* html element value from *Globex Signed* to *Globex Deploy Fixed*
-. From the top menu, click *File > Save*
-. Click the source control icon on the left side of the screen
-. Notice that the *index.html* file is shown under the *Changes* section.  Click the *+* sign to the right of the file name.
-This will add the file to the Git staging area.
-. Next enter some text in the *Commit* text box, such as *globex update 3*, and click *Commit*.
-This saves your changes to the local repository.
-. Next click the *Sync Changes* button to push your change to the remote repository.
-. Switch back to *Openshift* and click *Pipelines > Pipelines* from the left menu.  Ensure that your project is set to *ci*.
-. Notice that another instance of your pipeline run has started.  Wait for it to complete.
+. Add requests of *100m cpu* and *200Mi memory*
+. Add limits of *200m cpu* and *400Mi memory*
+. Commit your changes back to the repository
+. Trigger the pipeline as mentioned previously.  Notice that another instance of your pipeline run has started.  Wait for it to complete.
 
 == Examine pipeline
 . Click on the pipeline and then click on the *acs-deploy-check* task.
