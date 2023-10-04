@@ -1,15 +1,14 @@
 include::_attributes.adoc[]
 
 
-= Optional Challenge Lab: Resolving the Deployment File Warning
+= Challenge: Resolve Deployment Issues
 
 This part of the workshop is optional and tests your knowledge on resolving Openshift deployment related issues particulary around the risk of over provisioning of resources.
 
 == Updating the globex-ui deployment file
 
-. Using the terminal and the git clone command, clone the project {git_project}
-. Navigate to the *kustomize* base folder of the globex application and identify the *globex-ui* deployment file
-. On the right side of your screen under *Repositories*, click *dev-user/stssc-on-ocp-wks*
+. Using the terminal and the git clone command, clone the project {git_project} with username {git_username} and password {git_password}
+. Under the *gitops* root directory, navigate to the *kustomize* base folder of the globex application and identify the *globex-ui* deployment file
 . Add requests of *100m cpu* and *200Mi memory*
 . Add limits of *200m cpu* and *400Mi memory*
 . Commit your changes back to the repository
@@ -18,3 +17,4 @@ This part of the workshop is optional and tests your knowledge on resolving Open
 == Examine pipeline
 . Click on the pipeline and then click on the *acs-deploy-check* task.
 . The critical warning has now been resolved and does not show up in the logs.
+image::ocp-pipeline-run-4-deploy-check.png[]

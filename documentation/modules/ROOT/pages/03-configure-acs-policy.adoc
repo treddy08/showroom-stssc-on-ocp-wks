@@ -86,7 +86,7 @@ image::cs-globex-src-index-html.png[]
 . On line *19* modify the *center* html element value from *Globex Online* to *Globex Update*
 . From the top menu, click *File > Save*
 +
-image::cs-globex-src-save.png[]
+image::cs-globex-src-save-1.png[]
 . Click the source control icon on the left side of the screen
 . Notice that the *index.html* file is shown under the *Changes* section.  Click the *+* sign to the right of the file name.
 This will add the file to the Git staging area.
