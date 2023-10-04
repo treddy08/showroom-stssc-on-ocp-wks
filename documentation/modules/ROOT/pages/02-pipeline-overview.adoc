@@ -2,3 +2,7 @@ include::_attributes.adoc[]
 
 
 = Pipeline Overview
+
+. Login to {openshift_console_url} with username {admin} and password {common_password}.
+. Click on *Pipelines > Pipelines* from the left menu.  Ensure that your project is set to *ci*.
+. Click on *app-globex-ui-pipeline*

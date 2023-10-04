@@ -79,7 +79,7 @@ image::rhacs-policy-actions-popup.png[]
 
 == Trigger the Pipeline
 
-. Login to {codeserver_url}[Code Server] with password {common_password}
+. Login to {codeserver_url}[Code Server,window=read-later] with password {common_password}
 . On the left side of the screen, under *IDE (WORKSPACE)*, you will find the *globex-ui* source code project.  Expand the *src* folder and click on *index.html*.
 +
 image::cs-globex-src-index-html.png[]
