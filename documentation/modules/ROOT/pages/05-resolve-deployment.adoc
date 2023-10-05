@@ -8,7 +8,7 @@ This part of the workshop is optional and tests your knowledge on resolving Open
 == Updating the globex-ui deployment file
 
 In the previous section you were made aware of a deployment file issue with respect to missing *requests/limits*.  You will now attempt to resolve the *requests/limits* policy violation:
-+
+
 image::ocp-pipeline-run-3-deploy-check.png[]
 
 . Using the terminal and the git clone command, clone the project {git_project} with username {git_username} and password {git_password}
