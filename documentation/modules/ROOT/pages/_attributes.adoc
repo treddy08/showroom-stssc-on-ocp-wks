@@ -1,6 +1,6 @@
 :experimental:
 :numbered:
-:lab_name: Containerize your Application
+:lab_name: Securing The Software Supply Chain with Red Hat OpenShift
 
 :guid: my-guid
 :ssh_user: devops
