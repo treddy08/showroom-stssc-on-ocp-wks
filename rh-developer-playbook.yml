@@ -2,7 +2,7 @@ runtime:
   cache_dir: ./.cache/antora
 
 site:
-  title: Showroom Poc Demo
+  title: Securing The Software Supply Chain with Red Hat Openshift
   url: https://redhat-scholars.github.io/course-template
   start_page: stssc-on-ocp-wks::index.adoc
 

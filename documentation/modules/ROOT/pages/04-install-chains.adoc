@@ -44,9 +44,11 @@ tekton-chains-controller   1/1     1            1           106m
 
 . Switch back to {codeserver_url}[Code Server]
 . On the left side of the screen, under *IDE (WORKSPACE)*, you will find the *globex-ui* source code project.  Expand the *src* folder and click on *index.html*.
++
 image::cs-globex-src-index-html.png[]
 . On line *19* modify the *center* html element value from *Globex Update* to *Globex Signed*
 . From the top menu, click *File > Save*
++
 image::cs-globex-src-save-2.png[]
 . Click the source control icon on the left side of the screen
 . Notice that the *index.html* file is shown under the *Changes* section.  Click the *+* sign to the right of the file name.
@@ -56,6 +58,7 @@ This saves your changes to the local repository.
 . Next click the *Sync Changes* button to push your change to the remote repository.
 . Switch back to *Openshift* and click *Pipelines > Pipelines* from the left menu.  Ensure that your project is set to *ci*.
 . Notice that another instance of your pipeline run has started.  Wait for it to complete.
++
 image::ocp-pipeline-run-3.png[]
 
 == Examine pipeline
@@ -63,8 +66,10 @@ image::ocp-pipeline-run-3.png[]
 . Click on the *TaskRuns* tab and then click on the *TaskRun* of the *build-image* task.
 . Scroll down to the *Annotations* section on the *Details* tab and click on the annotations link.  Notice the annotation *chains.tekton.dev/signed* which confirms that Tekton Chains is active and signing your images.
 . Navitage back to the latest pipeline run by clicking *Pipelines > Pipelines* from the left menu and selecting the *Last run* pipeline run.
++
 image::ocp-pipeline-run-3-annotations.png[]
 . Click on *acs-deploy-check*.  You will see that there is a critical warning that there are no resource requests or limits set for your deployment.  You will be asked to resolve this issue in the challenge section of this workshop.
++
 image::ocp-pipeline-run-3-deploy-check.png[]
 
 == Examine Quay
@@ -73,4 +78,5 @@ image::ocp-pipeline-run-3-deploy-check.png[]
 . On the left side of the screen, click on the *Tags* icon.
 . Observe that your image tags now have a black shield icon at the end.
 . Hover over the icon for a tooltip to appear confirming your tag was signed with Cosign.
++
 image::quay-image-tag-signed.png[]
