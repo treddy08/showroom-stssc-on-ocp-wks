@@ -21,7 +21,7 @@ Take note of the key as you will need it to copy it later to configure a Signatu
 
 == Configure ACS Policy
 
-. Go to the {rhacs_console_url}[RHACS Console,window=read-later] and log in with your credentials username: *{acs_portal_username}* and password: *{acs_portal_password}*.
+. Go to the {acs_route}[RHACS Console,window=read-later] and log in with your credentials username: *{acs_portal_username}* and password: *{acs_portal_password}*.
 image:rhacs-login.png[]
 +
 . On the left menu, select *Platform Configuration > Integrations*

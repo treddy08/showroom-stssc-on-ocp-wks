@@ -73,7 +73,7 @@ image::ocp-pipeline-run-3-annotations.png[]
 image::ocp-pipeline-run-3-deploy-check.png[]
 
 == Examine Quay
-. Login to {quay_console_url}[Quay] with username *{quay_admin_username}* and password *{quay_admin_password}*.
+. Login to {quay_console_url}[Quay,window=read-later] with username *{quay_admin_username}* and password *{quay_admin_password}*.
 . Under *REPOSITORIES*, click the repository *quayadmin / globex-ui*
 . On the left side of the screen, click on the *Tags* icon.
 . Observe that your image tags now have a black shield icon at the end.
