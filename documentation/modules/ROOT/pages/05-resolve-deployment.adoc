@@ -11,12 +11,13 @@ In the previous section you were made aware of a deployment file issue with resp
 
 image::ocp-pipeline-run-3-deploy-check.png[]
 
-. Using the terminal and the git clone command, clone the project {git_project} with username {git_username} and password {git_password}
+. Using the terminal and the git clone command, clone the project *dev-user* with username and password *openshift*
 . Under the *gitops* root directory, navigate to the *kustomize* base folder of the globex application and identify the *globex-ui* deployment file
 . Add requests of *100m cpu* and *200Mi memory*
 . Add limits of *200m cpu* and *400Mi memory*
 . Commit your changes back to the repository
-. Trigger the pipeline as mentioned previously.  Notice that another instance of your pipeline run has started.  Wait for it to complete.
+. Trigger the pipeline as mentioned previously.
+. Switch back to {openshift_console_url}[Openshift,window=read-later] and click *Pipelines > Pipelines* from the left menu.  Notice that another instance of your pipeline run has started.  Wait for it to complete.
 
 == Examine pipeline
 . Click on the pipeline and then click on the *acs-deploy-check* task.
