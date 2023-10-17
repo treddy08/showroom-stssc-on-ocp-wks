@@ -1,7 +1,0 @@
-name: stssc-on-ocp-wks
-title: Securing The Software Supply Chain with Red Hat OpenShift
-version: master
-nav:
-  - modules/ROOT/nav.adoc
-
-start_page: ROOT:index.adoc
