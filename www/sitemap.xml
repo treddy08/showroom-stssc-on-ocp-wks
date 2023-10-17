@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>https://redhat-scholars.github.io/course-template/modules/01-introduction.html</loc>
+<lastmod>2023-10-17T00:13:17.781Z</lastmod>
+</url>
+<url>
+<loc>https://redhat-scholars.github.io/course-template/modules/02-pipeline-overview.html</loc>
+<lastmod>2023-10-17T00:13:17.781Z</lastmod>
+</url>
+<url>
+<loc>https://redhat-scholars.github.io/course-template/modules/03-configure-acs-policy.html</loc>
+<lastmod>2023-10-17T00:13:17.781Z</lastmod>
+</url>
+<url>
+<loc>https://redhat-scholars.github.io/course-template/modules/04-install-chains.html</loc>
+<lastmod>2023-10-17T00:13:17.781Z</lastmod>
+</url>
+<url>
+<loc>https://redhat-scholars.github.io/course-template/modules/05-resolve-deployment.html</loc>
+<lastmod>2023-10-17T00:13:17.781Z</lastmod>
+</url>
+<url>
+<loc>https://redhat-scholars.github.io/course-template/modules/include_vars.html</loc>
+<lastmod>2023-10-17T00:13:17.781Z</lastmod>
+</url>
+<url>
+<loc>https://redhat-scholars.github.io/course-template/modules/index.html</loc>
+<lastmod>2023-10-17T00:13:17.781Z</lastmod>
+</url>
+</urlset>

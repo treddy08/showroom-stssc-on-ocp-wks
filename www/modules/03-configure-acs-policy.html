@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Configuring ACS for Image Signature Verification :: Securing The Software Supply Chain with Red Hat Openshift</title>
+    <link rel="canonical" href="https://redhat-scholars.github.io/course-template/modules/03-configure-acs-policy.html">
+    <link rel="prev" href="02-pipeline-overview.html">
+    <link rel="next" href="04-install-chains.html">
+    <meta name="generator" content="Antora 3.1.4">
+    <link rel="stylesheet" href="../_/css/site.css">
+<link rel="icon" href="../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://developers.redhat.com" target="_blank"><img
+          src="../_/img/header_logo.png" height="40px" alt="Red Hat Developer Program"></a>
+      <a class="navbar-item" href="https://redhat-scholars.github.io/course-template">Securing The Software Supply Chain with Red Hat Openshift</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Books</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">CheatSheets</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">CheatSheet A</a>
+            <a class="navbar-item" href="#">CheatSheet B</a>
+            <a class="navbar-item" href="#">CheatSheet C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Upcoming Events</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Event A</a>
+            <a class="navbar-item" href="#">Event B</a>
+            <a class="navbar-item" href="#">Event C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">More Tutorials</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Tutorial A</a>
+            <a class="navbar-item" href="#">Tutorial B</a>
+            <a class="navbar-item" href="#">Tutorial C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="modules" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html" class=" query-params-link">modules</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="01-introduction.html">1. Workshop Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="02-pipeline-overview.html">2. An Overview of your Pipeline</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="03-configure-acs-policy.html">3. Configuring ACS for Image Signatures Verification</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="04-install-chains.html">4. Installing Tekton Chains for Image Signing</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="05-resolve-deployment.html">5. Challenge: Resolve Deployment Issues</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">modules</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">modules</span>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">modules</a></li>
+    <li><a href="03-configure-acs-policy.html">3. Configuring ACS for Image Signatures Verification</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="file:///antora/content/modules/ROOT/pages/03-configure-acs-policy.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Configuring ACS for Image Signature Verification</h1>
+<div class="sect1">
+<h2 id="_creating_the_cosign_secret"><a class="anchor" href="#_creating_the_cosign_secret"></a>1. Creating the Cosign Secret</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>On your ssh terminal, run the following command to create a secret called signing-secrets in the openshift-pipelines namespace which Chains will use to sign your images:</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">COSIGN_PASSWORD=openshift cosign generate-key-pair k8s://openshift-pipelines/signing-secrets</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Along with generating a secret, the above command also creates a <strong>cosign.pub</strong> file in our home diretory.  This key is used for image signature verification.  Print the public key:</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">cat cosign.pub</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Take note of the key as you will need it to copy it later to configure a Signature Integration in RHACS.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configure_acs_policy"><a class="anchor" href="#_configure_acs_policy"></a>2. Configure ACS Policy</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Go to the {acs_route}[RHACS Console,window=read-later] and log in with your credentials username: <strong>{acs_portal_username}</strong> and password: <strong>{acs_portal_password}</strong>.
+<span class="image"><img src="_images/rhacs-login.png" alt="rhacs login"></span></p>
+</li>
+<li>
+<p>On the left menu, select <strong>Platform Configuration &gt; Integrations</strong></p>
+<div class="paragraph">
+<p><span class="image"><img src="_images/rhacs_integrations.png" alt="rhacs integrations"></span></p>
+</div>
+</li>
+<li>
+<p>On the <strong>Integrations</strong> screen, select <strong>Signature Integrations</strong></p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/rhacs-signature-integration.png" alt="rhacs signature integration">
+</div>
+</div>
+</li>
+<li>
+<p>On the <strong>Signature Integrations</strong>, click the button <strong>New integration</strong></p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>For <strong>Integration name</strong> enter <strong>cosign</strong></p>
+</li>
+<li>
+<p>Expand the <strong>Cosign</strong> field and select <strong>Add new public key</strong></p>
+</li>
+<li>
+<p>For <strong>Public key name</strong> enter <strong>cosign.pub</strong></p>
+</li>
+<li>
+<p>For <strong>Public key value</strong> copy the public key from the terminal and paste it in this field.  This is used by RHACS to verify your image signatures.  Ensure you copy the entire contents of the file i.e.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-textinfo hljs" data-lang="textinfo">*-----BEGIN PUBLIC KEY-----*
+...
+*-----END PUBLIC KEY-----*</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Click save</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/rhacs-signature-integration-entry.png" alt="rhacs signature integration entry">
+</div>
+</div>
+</li>
+<li>
+<p>For convenience, we have already set up a policy in ACS called <strong>0-Trusted Signature Policy</strong> that checks an image for a valid signature.  This policy is enforced during the below lifecycle stages:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Build  - Runs when doing a roxctl image check on an image.  This will trigger a violation if the image passed to the command is not signed with our signature.</p>
+</li>
+<li>
+<p>Deployment - Will prevent deployments to Openshift if images are not signed with our signature</p>
+<div class="paragraph">
+<p>This policy is currently disabled.</p>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>On the left menu, select <strong>Platform Configuration &gt; Policy Management</strong></p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/rhacs-policy-management.png" alt="rhacs policy management">
+</div>
+</div>
+</li>
+<li>
+<p>The policy you are looking for is called <strong>0-Trusted Signature Policy</strong>.  It should be at the top of the list.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/rhacs-policy-management-list.png" alt="rhacs policy management list">
+</div>
+</div>
+</li>
+<li>
+<p>Click the ellipse at the end and select <strong>Edit policy</strong>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/rhacs-policy-actions-popup.png" alt="rhacs policy actions popup">
+</div>
+</div>
+</li>
+<li>
+<p>Select <strong>Policy criteria</strong> and then click the <strong>Select</strong> button.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/rhacs-policy-criteria-select.png" alt="rhacs policy criteria select">
+</div>
+</div>
+</li>
+<li>
+<p>Select the cosign signature integration and click save.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/rhacs-policy-criteria-trusted-image-signers.png" alt="rhacs policy criteria trusted image signers">
+</div>
+</div>
+</li>
+<li>
+<p>Continue clicking next at the bottom until you finally save the policy.</p>
+</li>
+<li>
+<p>Now that the policy is updated, we want to enable it.  Click the ellipse again for the same policy and select <strong>Enable policy</strong></p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/rhacs-policy-actions-popup.png" alt="rhacs policy actions popup">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_trigger_the_pipeline"><a class="anchor" href="#_trigger_the_pipeline"></a>3. Trigger the Pipeline</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Login to {codeserver_url}[Code Server,window=read-later] with password <strong>{codeserver_password}</strong></p>
+</li>
+<li>
+<p>On the left side of the screen, under <strong>IDE (WORKSPACE)</strong>, you will find the <strong>globex-ui</strong> source code project.  Expand the <strong>src</strong> folder and click on <strong>index.html</strong>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/cs-globex-src-index-html.png" alt="cs globex src index html">
+</div>
+</div>
+</li>
+<li>
+<p>On line <strong>19</strong> modify the <strong>center</strong> html element value from <strong>Globex Online</strong> to <strong>Globex Update</strong></p>
+</li>
+<li>
+<p>From the top menu, click <strong>File &gt; Save</strong></p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/cs-globex-src-save-1.png" alt="cs globex src save 1">
+</div>
+</div>
+</li>
+<li>
+<p>Click the source control icon on the left side of the screen</p>
+</li>
+<li>
+<p>Notice that the <strong>index.html</strong> file is shown under the <strong>Changes</strong> section.  Click the <strong>+</strong> sign to the right of the file name.
+This will add the file to the Git staging area.</p>
+</li>
+<li>
+<p>Next enter some text in the <strong>Commit</strong> text box, such as <strong>globex udpate 1</strong>, and click <strong>Commit</strong>.
+This saves your changes to the local repository.</p>
+</li>
+<li>
+<p>Next click the <strong>Sync Changes</strong> button to push your change to the remote repository.</p>
+</li>
+<li>
+<p>Switch back to <strong>Openshift</strong> and click <strong>Pipelines &gt; Pipelines</strong> from the left menu.  Ensure that your project is set to <strong>ci</strong>.</p>
+</li>
+<li>
+<p>Notice that a new instance of your pipeline run has started.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ocp-pipeline-run-2.png" alt="ocp pipeline run 2">
+</div>
+</div>
+<div class="paragraph">
+<p>Your pipeline should complete in a <strong>Failed</strong> state.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ocp-pipeline-run-2-fail.png" alt="ocp pipeline run 2 fail">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_examine_pipeline"><a class="anchor" href="#_examine_pipeline"></a>4. Examine pipeline</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click on the pipeline run to examine the reason for the error.</p>
+</li>
+<li>
+<p>Your pipeline has failed as the Red Hat ACS policy <strong>01-Trusted Signature Policy</strong> is enabled and has detected that the image your pipeline has built is not signed with the private key you generated with <strong>Cosign</strong>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ocp-pipeline-run-2-error.png" alt="ocp pipeline run 2 error">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deploy_an_untrusted_image"><a class="anchor" href="#_deploy_an_untrusted_image"></a>5. Deploy an Untrusted Image</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Run the below command on your terminal</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc new-app https://github.com/openshift/ruby-hello-world.git#beta4 -n globex</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Observe the output of this command.  Notice that the admission controller has prevented you from creating this application as the image being deployed violates the <strong>0-Trusted Signature Policy</strong>.  Creating a depoyment with an untrusted image directly on Openshift will also be prevented along with a similar warning showing up on the <strong>Events</strong> tab.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Policy: 0-Trusted Signature Policy
+- Description:
+    ↳
+- Rationale:
+    ↳
+- Remediation:
+    ↳
+- Violations:
+    - Container 'ruby-hello-world' image signature is unverified</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="02-pipeline-overview.html" class="query-params-link">2. An Overview of your Pipeline</a></span>
+  <span class="next"><a href="04-install-chains.html" class="query-params-link">4. Installing Tekton Chains for Image Signing</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <a class="rhd-logo" href="https://developers.redhat.com" target="_blank"></div>
+</footer>
+<script src="../_/js/vendor/clipboard.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
