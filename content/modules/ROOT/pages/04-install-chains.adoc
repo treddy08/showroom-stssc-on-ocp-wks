@@ -1,9 +1,14 @@
 include::_attributes.adoc[]
 
+== Understanding Tekton Chains in OpenShift Pipelines
 
-= Installing Tekton Chains for Image Signing
+=== Enhancing Security with Tekton Chains
 
-== Creating the CRD
+Tekton Chains, a Kubernetes Custom Resource Definition (CRD) controller, is crucial in augmenting the supply chain security within our OpenShift Pipelines. This tool's capacity to automatically sign task runs, and its adoption of advanced attestation formats like in-toto, bring a higher degree of trust and verification to our processes. We'll delve into how Tekton Chains ensures that every aspect of our container image production, from creation to deployment, is securely recorded and stored.
+
+=== Installing Tekton Chains for Image Signing
+
+==== Creating the CRD
 
 . Configure Tekton Chains by running the below commands on the terminal:
 +
@@ -40,7 +45,7 @@ NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
 tekton-chains-controller   1/1     1            1           106m
 ----
 
-== Trigger the Pipeline
+==== Trigger the Pipeline
 
 . Switch back to {codeserver_url}[Code Server,window=read-later]
 . On the left side of the screen, under *IDE (WORKSPACE)*, you will find the *globex-ui* source code project.  Expand the *src* folder and click on *index.html*.
@@ -61,7 +66,7 @@ This saves your changes to the local repository.
 +
 image::ocp-pipeline-run-3.png[]
 
-== Examine pipeline
+==== Examine pipeline
 . Click on the pipeline.  The *acs-image-check* is now successful which means that your latest image is now signed with the *Cosign* private key.
 . Click on the *TaskRuns* tab and then click on the *TaskRun* of the *build-image* task.
 . Scroll down to the *Annotations* section on the *Details* tab and click on the annotations link.  Notice the annotation *chains.tekton.dev/signed* which confirms that Tekton Chains is active and signing your images.
@@ -72,7 +77,7 @@ image::ocp-pipeline-run-3-annotations.png[]
 +
 image::ocp-pipeline-run-3-deploy-check.png[]
 
-== Examine Quay
+==== Examine Quay
 . Login to {quay_console_url}[Quay,window=read-later] with username *{quay_admin_username}* and password *{quay_admin_password}*.
 . Under *REPOSITORIES*, click the repository *quayadmin / globex-ui*
 . On the left side of the screen, click on the *Tags* icon.

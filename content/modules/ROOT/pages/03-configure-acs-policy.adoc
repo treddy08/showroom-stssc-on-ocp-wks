@@ -1,9 +1,14 @@
 include::_attributes.adoc[]
 
+== Red Hat Advanced Cluster Security (ACS) and Cosign Integration
 
-= Configuring ACS for Image Signature Verification
+=== Deepening Security Layers
 
-== Creating the Cosign Secret
+In the context of ever-evolving cyber threats, integrating Advanced Cluster Security (ACS) with Cosign in our OpenShift environment signifies a strategic enhancement in our security posture. We'll examine how this integration offers not just an additional verification layer for our container images but also a more robust, holistic defense mechanism. By aligning ACS with Cosign, we ensure that every container image deployed in our system is doubly checked for its security and compliance, aligning perfectly with our stringent security mandates.
+
+=== Configuring ACS for Image Signature Verification
+
+==== Creating the Cosign Secret
 
 . On your ssh terminal, run the following command to create a secret called signing-secrets in the openshift-pipelines namespace which Chains will use to sign your images:
 +
@@ -19,7 +24,7 @@ cat cosign.pub
 ----
 Take note of the key as you will need it to copy it later to configure a Signature Integration in RHACS.
 
-== Configure ACS Policy
+==== Configure ACS Policy
 
 . Go to the {acs_route}[RHACS Console,window=read-later] and log in with your credentials username: *{acs_portal_username}* and password: *{acs_portal_password}*.
 image:rhacs-login.png[]
@@ -76,7 +81,7 @@ image::rhacs-policy-criteria-trusted-image-signers.png[]
 +
 image::rhacs-policy-actions-popup.png[]
 
-== Trigger the Pipeline
+==== Trigger the Pipeline
 
 . Login to {codeserver_url}[Code Server,window=read-later] with password *{codeserver_password}*
 . On the left side of the screen, under *IDE (WORKSPACE)*, you will find the *globex-ui* source code project.  Expand the *src* folder and click on *index.html*.
@@ -100,13 +105,13 @@ Your pipeline should complete in a *Failed* state.
 +
 image::ocp-pipeline-run-2-fail.png[]
 
-== Examine pipeline
+==== Examine pipeline
 . Click on the pipeline run to examine the reason for the error.
 . Your pipeline has failed as the Red Hat ACS policy *01-Trusted Signature Policy* is enabled and has detected that the image your pipeline has built is not signed with the private key you generated with *Cosign*.
 +
 image::ocp-pipeline-run-2-error.png[]
 
-== Deploy an Untrusted Image
+==== Deploy an Untrusted Image
 
 . Run the below command on your terminal
 +

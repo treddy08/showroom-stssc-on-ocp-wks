@@ -1,6 +1,7 @@
 :experimental:
 :numbered:
-:lab_name: Securing The Software Supply Chain with Red Hat OpenShift
+:lab_name: From Development to Deployment: Securing The Software Supply Chain with Red Hat OpenShift
+:toc:
 
 :guid: my-guid
 :ssh_user: devops
