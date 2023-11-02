@@ -1,5 +1,3 @@
-include::_attributes.adoc[]
-
 = From Development to Deployment: Securing The Software Supply Chain with Red Hat OpenShift
 :toc:
 :toc-placement: preamble

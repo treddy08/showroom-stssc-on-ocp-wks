@@ -1,5 +1,3 @@
-include::_attributes.adoc[]
-
 == Introduction and Challenge Overview
 
 === Current Security Challenges

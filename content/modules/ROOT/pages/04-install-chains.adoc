@@ -1,5 +1,3 @@
-include::_attributes.adoc[]
-
 == Understanding Tekton Chains in OpenShift Pipelines
 
 === Enhancing Security with Tekton Chains
