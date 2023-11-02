@@ -1,5 +1,3 @@
-include::_attributes.adoc[]
-
 == Red Hat Advanced Cluster Security (ACS) and Cosign Integration
 
 === Deepening Security Layers

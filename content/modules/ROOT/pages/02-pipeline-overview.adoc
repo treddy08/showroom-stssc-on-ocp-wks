@@ -1,6 +1,3 @@
-include::_attributes.adoc[]
-
-
 = Pipeline Overview
 
 . Login to {openshift_console_url}[Openshift,window=read-later] with username {openshift_cluster_admin_username} and password {openshift_cluster_admin_password}.

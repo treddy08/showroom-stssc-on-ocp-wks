@@ -1,6 +1,3 @@
-include::_attributes.adoc[]
-
-
 = Challenge: Resolve Deployment Issues
 
 This part of the workshop is optional and tests your knowledge on resolving Openshift deployment related issues particulary around the risk of over provisioning of resources.
