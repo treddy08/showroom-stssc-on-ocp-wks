@@ -1,5 +1,92 @@
-= Pipeline Overview
+== Pipeline Overview
+
+DevSecOps tasks that are typically performed when securing your SDLC process.
+
+The pipeline, called app-globex-ui-pipeline, is set up to build a container image for the UI of an online retail application called Globex and is triggered once changes to the UI source code have been pushed to its Gitea repository.   The remaining components of this application are pre-built and deployed alongside our container image to our dev and production clusters.
+
+The pipeline logic, which includes the yaml manifest for the pipeline and tasks, is stored in a Gitea repository alongside the application and infrastructure code.  This is known as the pipeline-as-code pattern.  These yaml manifests are eventually deployed to the Hub Cluster using ArgoCD when the demo environment is ordered.
+
+For the purposes of time, we have a triggered pipeline for us to examine.
+
+=== View the pipeline
 
 . Login to {openshift_console_url}[Openshift,window=read-later] with username {openshift_cluster_admin_username} and password {openshift_cluster_admin_password}.
 . Click on *Pipelines > Pipelines* from the left menu.  Ensure that your project is set to *ci*.
-. Click on *app-globex-ui-pipeline*
+. Click on the *app-globex-ui-pipeline-<guid>* link under the *Last run* column:
++
+image::pipeline-details.png[]
+
+=== Examine the pipeline
+
+==== fetch-source
+
+image::pipeline-fetch-source.png[]
+
+As with most CI processes, they usually begin by a push of source code to a repository.  So it makes sense to pull the recently committed change in order for your CI process to work on it.  We do this by using the *git-clone* ClusterTask made available by the Openshift Pipelines operator.
+
+==== scan-source
+
+image::pipeline-scan-source.png[]
+
+A good idea would be to run a static analysis of your code to detect any bugs or characteristics in your code that would indicate a bigger problem.  In this task, we use a tool called Sonarqube to collect and analyze source code, and provide reports based on its quality.  A Sonarqube scan is instantiated by using the sonar-scan CLI tool that is available via a docker image used in this scan-source Task.
+
+Scan results can be viewed via the pipeline logs or you could login to the Sonarqube application to get a much more readable and in depth summary of the results.
+
+==== verify-source
+
+image::pipeline-verify-source.png[]
+
+It is important to know that the source code you are building was modified by a trusted source.  A way to to do this would be to verify the latest commit, which triggered the pipeline, was digitally signed by someone or something we trust.  The command we use is *git verify-commit* which checks the GPG signature of commits using a preloaded public key.  Non signed commits or commits with unrecognized signatures will be blocked at this step and will not progress to the next task of the pipeline.
+
+==== build-image
+
+image::pipeline-build-image.png[]
+
+This task is responsible for building a container image based from our source code, including any changes that were committed.  The built container image, along with a new tag and a generated Software Bill of Materials (SBOM) is then pushed to our private quay registry on successful completion.
+
+The SBOM generated includes content from both the source code as well as the built container image.  This is done by using a tool called Syft.  Syft is a CLI tool and Go library for generating an SBOM from container images and filesystems.
+
+An SBOM is a machine-readable, formally structured complete list of all the components, including modules and libraries, used/required to build a software solution
+
+So, in simple words, a software bill of materials offers an insight into the makeup of an application developed using third-party commercial tools and open-source software.
+
+This task is also responsible for emitting two important TaskResults i.e. *IMAGE_URL* and *IMAGE_DIGEST*.  In its current state, nothing much is done with these results.  Once *Tekton Chains* is enabled, it will use these results to create a digital signature for your container image.
+
+==== acs-image-check
+
+image::pipeline-acs-image-check.png[]
+
+An important step in a CI process is to automatically prevent high-risk service deployments in your environment and to respond to runtime security incidents.  For this to happen in our CI process, we make use of Red Hat Advanced Cluster Security.  Policies can be created to ensure that any image that is built complies to the standard and practices defined by your organization.
+
+The *acs-image-check* uses the *roxctl* CLI to check build-time violations of your security policies in your image.  In this demo, we have set up a policy that verifies signatures on your container image.  If this policy is enabled and your container image is unsigned or signed by non trusted source, the pipeline will fail.  If the signature is available and is trusted, this pipeline task will complete successfully.
+
+==== acs-image-scan
+
+image::pipeline-acs-image-scan.png[]
+
+The *acs-image-scan* uses the *roxctl* CLI to return the components and vulnerabilities found in the image
+.  Any vulnerabilities that exist in packages embedded in the image will be reported.
+
+==== scan-export-sbom
+
+image::pipeline-scan-export-sbom.png[]
+
+This task is responsible for scanning any vulnerabilities that exist in our SBOM and exports our SBOM to a externall accessible repository.  For scanning, this task uses a tool called Grype which is a vulnerability scanner for container images and filesystems.
+
+Grype generates an output viewable in the logs highlighting any vulnerabilities identified in the scan.  You may decide to act on it or ignore it.
+
+Once the scan is complete, it pushes the SBOM to a CycloneDX repository.  Currently, the SBOM is stored in Quay and is not in an easily accessible or readable format.  Pushing it to an external repository allows us to access the raw JSON/XML file for further use outside of the CI process.
+
+==== acs-deploy-check
+
+image::pipeline-acs-deploy-check.png[]
+
+This task is responsible for checking the generated deployment manifest, that contains the updated image, for policy compliance.  This is done using the roxctl CLI tool.  This ensures that your deployment manifest adheres to any policy requirements, for e.g. flagging images that are unsafe to use or to ensure your developers have provided required resource entries such as cpu and memory.
+
+==== update-dev-manifest
+
+image::pipeline-update-dev-manifest.png[]
+
+This task is responsible for initiating the deployment of our new image to the development environment.  Note, the deployment of the image is handled by the CD process so all we need to do is somehow let the CD process know that a new image is available to deploy.  We do this by updating the associated deployment manifest file stored in a Gitops repository directly to the main branch.  This repository's main branch is constantly monitored by the CD process for any changes.
+
+Once the deployment manifest and branch is updated, ArgoCD detects a change was made and then syncs the changes to the dev environment.  This way the CI process is isolated and removed entirely from the deployment process.
