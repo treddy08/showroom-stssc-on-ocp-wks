@@ -12,8 +12,8 @@ asciidoc:
     numbered:
     lab_name: "From Development to Deployment: Securing The Software Supply Chain with Red Hat OpenShift"
     guid: my-guid
-    ssh_user: devops
-    ssh_password: devops
+    ssh_user: lab-user
+    ssh_password: lab-user
     ssh_command: ssh devops@bastion.{guid}.example.opentlc.com
 
   extensions:
