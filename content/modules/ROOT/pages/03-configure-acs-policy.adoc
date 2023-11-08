@@ -24,7 +24,7 @@ Take note of the key as you will need it to copy it later to configure a Signatu
 
 ==== Configure ACS Policy
 
-. Go to the {acs_route}[RHACS Console,window=read-later] and log in with your credentials username: *{acs_portal_username}* and password: *{acs_portal_password}*.
+. Go to the {acs_route}[RHACS Console,window=_blank] and log in with your credentials username: *{acs_portal_username}* and password: *{acs_portal_password}*.
 image:rhacs-login.png[]
 +
 . On the left menu, select *Platform Configuration > Integrations*
@@ -81,7 +81,7 @@ image::rhacs-policy-actions-popup.png[]
 
 ==== Trigger the Pipeline
 
-. Login to {codeserver_url}[Code Server,window=read-later] with password *{codeserver_password}*
+. Login to {codeserver_url}[Code Server,window=_blank] with password *{codeserver_password}*
 . On the left side of the screen, under *IDE (WORKSPACE)*, you will find the *globex-ui* source code project.  Expand the *src* folder and click on *index.html*.
 +
 image::cs-globex-src-index-html.png[]

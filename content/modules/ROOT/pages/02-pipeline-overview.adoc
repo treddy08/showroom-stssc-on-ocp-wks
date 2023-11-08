@@ -10,7 +10,7 @@ For the purposes of time, we have a triggered pipeline for us to examine.
 
 === View the pipeline
 
-. Login to {openshift_console_url}[Openshift,window=read-later] with username {openshift_cluster_admin_username} and password {openshift_cluster_admin_password}.
+. Login to {openshift_console_url}[Openshift,window=_blank] with username {openshift_cluster_admin_username} and password {openshift_cluster_admin_password}.
 . Click on *Pipelines > Pipelines* from the left menu.  Ensure that your project is set to *ci*.
 . Click on the *app-globex-ui-pipeline-<guid>* link under the *Last run* column:
 +
