@@ -68,9 +68,9 @@ image::ocp-pipeline-run-3.png[]
 . Click on the pipeline.  The *acs-image-check* is now successful which means that your latest image is now signed with the *Cosign* private key.
 . Click on the *TaskRuns* tab and then click on the *TaskRun* of the *build-image* task.
 . Scroll down to the *Annotations* section on the *Details* tab and click on the annotations link.  Notice the annotation *chains.tekton.dev/signed* which confirms that Tekton Chains is active and signing your images.
-. Navitage back to the latest pipeline run by clicking *Pipelines > Pipelines* from the left menu and selecting the *Last run* pipeline run.
 +
 image::ocp-pipeline-run-3-annotations.png[]
+. Navitage back to the latest pipeline run by clicking *Pipelines > Pipelines* from the left menu and selecting the *Last run* pipeline run.
 . Click on *acs-deploy-check*.  You will see that there is a critical warning that there are no resource requests or limits set for your deployment.  You will be asked to resolve this issue in the challenge section of this workshop.
 +
 image::ocp-pipeline-run-3-deploy-check.png[]

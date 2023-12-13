@@ -2,7 +2,7 @@
 
 DevSecOps tasks that are typically performed when securing your SDLC process.
 
-The pipeline, called app-globex-ui-pipeline, is set up to build a container image for the UI of an online retail application called Globex and is triggered once changes to the UI source code have been pushed to its Gitea repository.   The remaining components of this application are pre-built and deployed alongside our container image to our dev and production clusters.
+The pipeline, called app-globex-ui-pipeline, is set up to build a container image for the UI of an online retail application called Globex and is triggered once changes to the UI source code have been pushed to its Gitea repository.   The remaining components of this application are pre-built and deployed alongside our container image to our development cluster.
 
 The pipeline logic, which includes the yaml manifest for the pipeline and tasks, is stored in a Gitea repository alongside the application and infrastructure code.  This is known as the pipeline-as-code pattern.  These yaml manifests are eventually deployed to the Hub Cluster using ArgoCD when the demo environment is ordered.
 
@@ -10,7 +10,7 @@ For the purposes of time, we have a triggered pipeline for us to examine.
 
 === View the pipeline
 
-. Login to {openshift_console_url}[Openshift,window=_blank] with username {openshift_cluster_admin_username} and password {openshift_cluster_admin_password}.
+. Login to {openshift_console_url}[Openshift,window=_blank] with username *{openshift_cluster_admin_username}* and password *{openshift_cluster_admin_password}*.
 . Click on *Pipelines > Pipelines* from the left menu.  Ensure that your project is set to *ci*.
 . Click on the *app-globex-ui-pipeline-<guid>* link under the *Last run* column:
 +

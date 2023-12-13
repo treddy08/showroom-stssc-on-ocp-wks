@@ -8,7 +8,8 @@ In the previous section you were made aware of a deployment file issue with resp
 
 image::ocp-pipeline-run-3-deploy-check.png[]
 
-. Using the terminal and the git clone command, clone the project *dev-user* with username and password *openshift*
+. Using the terminal and the git clone command, clone the repository *stssc-on-ocp-wks* with username *dev-user* and password *openshift*.
+NOTE: You can find this repository in your Gitea instance at {gitea_console_url}
 . Under the *gitops* root directory, navigate to the *kustomize* base folder of the globex application and identify the *globex-ui* deployment file
 . Add requests of *100m cpu* and *200Mi memory*
 . Add limits of *200m cpu* and *400Mi memory*

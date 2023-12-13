@@ -41,9 +41,9 @@ image::rhacs-signature-integration.png[]
 +
 [source,textinfo]
 ----
-*-----BEGIN PUBLIC KEY-----*
+-----BEGIN PUBLIC KEY-----
 ...
-*-----END PUBLIC KEY-----*
+-----END PUBLIC KEY-----
 ----
 . Click save
 +
